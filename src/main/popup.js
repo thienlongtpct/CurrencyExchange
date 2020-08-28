@@ -16,38 +16,45 @@ function getUrl(link) {
         thead.appendChild(first_tr);
 
         let first_bank = document.createElement("th");
-        // first_bank.classList.add("th-sm");
-        first_bank.innerHTML = "Bank";
+        first_bank.innerHTML = "Ngân hàng";
         first_tr.appendChild(first_bank);
 
         let first_buy = document.createElement("th");
-        // first_buy.classList.add("th-sm");
-        first_buy.innerHTML = "Buy";
+        first_buy.innerHTML = "Mua";
         first_tr.appendChild(first_buy);
 
         let first_sell = document.createElement("th");
-        // first_sell.classList.add("th-sm");
-        first_sell.innerHTML = "Sell";
+        first_sell.innerHTML = "Bán";
         first_tr.appendChild(first_sell);
 
         let tbody = document.createElement("tbody");
         table.appendChild(tbody);
 
         value = response.split(';');
-        for (let i = 0; i < value.length-2; i += 3) {
+        for (let i = 0; i < value.length-2; i += 4) {
             let tr = document.createElement("tr");
             tbody.appendChild(tr);
 
             let bank = document.createElement("td");
-            bank.innerHTML = value[i];
+            let bankName = document.createElement("a");
+            bankName.innerHTML = value[i];
+            bankName.href = value[i+1];
+            bankName.target = "_blank";
+            bankName.style.textDecoration = "none";
+            bankName.style.color = "black";
+            bank.appendChild(bankName);
             tr.appendChild(bank);
 
             let buy = document.createElement("td");
-            buy.innerHTML = value[i+2];
+            buy.innerHTML = value[i+3];
             tr.appendChild(buy);
 
             let sell = document.createElement("td");
-            sell.innerHTML = value[i+1];
+            sell.innerHTML = value[i+2];
+
+
+            tr.onmouseover = function(){tr.style.fontWeight = "bold";};
+            tr.onmouseout = function(){tr.style.fontWeight = "normal";};
             tr.appendChild(sell);
         }
 
@@ -89,7 +96,12 @@ function getUrl(link) {
 }
 
 getUrl('http://localhost:8080/readValue');
-
+let today = new Date().toLocaleString();
+let updateData = document.createElement("p");
+updateData.innerHTML = "Cập nhật: "+today;
+updateData.style.fontFamily = "Times New Roman";
+updateData.style.textAlign = "right";
+document.body.appendChild(updateData);
 // $.ajax({
 //     type: 'POST',
 //     url: 'http://localhost:8080/readValue',

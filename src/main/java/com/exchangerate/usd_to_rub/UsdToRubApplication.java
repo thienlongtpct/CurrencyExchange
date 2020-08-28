@@ -48,11 +48,13 @@ public class UsdToRubApplication {
             if (bank.getNodeType() == Node.ELEMENT_NODE) {
                 Element bankElement = (Element)bank;
                 bankInfo += preprocess(bankElement.getElementsByTagName("Name").item(0).getTextContent())+';';
+                bankInfo += bankElement.getElementsByTagName("Url").item(0).getTextContent()+';';
                 Element usd = (Element)bankElement.getElementsByTagName("USD").item(0);
                 bankInfo += usd.getElementsByTagName("Sell").item(0).getTextContent()+';';
                 bankInfo += usd.getElementsByTagName("Buy").item(0).getTextContent()+';';
                 bankInfo = bankInfo.replace("\n", "");
                 allInfo.append(bankInfo);
+                System.out.println(bankInfo);
             }
         }
 
