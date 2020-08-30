@@ -83,7 +83,7 @@ function getCurrency(link, city) {
 }
 
 $.ajax({
-    url: 'http://localhost:8080/usd?city=saint',
+    url: 'http://usd-eur-rub.herokuapp.com/usd?city=saint',
     error: function() {
         document.body.innerHTML = "";
         let announcement = document.createElement("p");
@@ -91,7 +91,7 @@ $.ajax({
         document.body.appendChild(announcement);
     },
     success: function () {
-        getCurrency('http://localhost:8080/usd', 'saint');
+        getCurrency('http://usd-eur-rub.herokuapp.com/usd', 'saint');
     }
 });
 
@@ -101,8 +101,8 @@ $('.selectpicker').change(function () {
         document.body.removeChild(document.body.lastElementChild);
         document.body.removeChild(document.body.lastElementChild);
     }
-    if (USD.className.search("active") === -1) getCurrency('http://localhost:8080/eur', $('.selectpicker').val());
-    else getCurrency('http://localhost:8080/usd', $('.selectpicker').val());
+    if (USD.className.search("active") === -1) getCurrency('http://usd-eur-rub.herokuapp.com/eur', $('.selectpicker').val());
+    else getCurrency('http://usd-eur-rub.herokuapp.com/usd', $('.selectpicker').val());
 });
 
 let USD = document.getElementById("USD")
@@ -115,7 +115,7 @@ USD.onclick = function () {
         document.body.removeChild(document.body.lastElementChild);
         document.body.removeChild(document.body.lastElementChild);
     }
-    getCurrency('http://localhost:8080/usd', $('.selectpicker').val());
+    getCurrency('http://usd-eur-rub.herokuapp.com/usd', $('.selectpicker').val());
 }
 
 let EUR = document.getElementById("EUR")
@@ -128,5 +128,5 @@ EUR.onclick = function () {
         document.body.removeChild(document.body.lastElementChild);
         document.body.removeChild(document.body.lastElementChild);
     }
-    getCurrency('http://localhost:8080/eur', $('.selectpicker').val());
+    getCurrency('http://usd-eur-rub.herokuapp.com/eur', $('.selectpicker').val());
 }
