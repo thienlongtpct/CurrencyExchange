@@ -1,3 +1,14 @@
+:root{
+    --main_color: #cd99b9;
+    --main_color_15: #cd99b926;
+    --main_color_30: #cd99b94D;
+    --main_color_70: #cd99b9B3;
+    --light: #e7b3d3;
+    --dark: #B480A0;
+    --darker: #814C6D;
+    --darkest: #340020;
+}
+
 table.dataTable thead .sorting:after,
 table.dataTable thead .sorting:before,
 table.dataTable thead .sorting_asc:after,
@@ -8,14 +19,166 @@ table.dataTable thead .sorting_desc:after,
 table.dataTable thead .sorting_desc:before,
 table.dataTable thead .sorting_desc_disabled:after,
 table.dataTable thead .sorting_desc_disabled:before {
-    bottom: 0.7em;
+    bottom: 0.8em;
 }
-
 
 html {
     height: 200px;
-    width: 300px;
+    width: 350px;
+    font-size: 12px;
+    padding: 5px;
+    color: var(--main_color);
 }
 
-tbody {
+#btnGroupAddon2 {
+    background-color: var(--main_color);
+    border: 0;
+    color: white;
 }
+
+.filter-option-inner-inner {
+    font-size: 10px !important;
+    color: var(--main_color);
+}
+
+.text {
+    font-size: 10px !important;
+}
+
+/*select*/
+.bootstrap-select .btn {
+    color: var(--main_color) !important;
+}
+.bootstrap-select .btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: 1px solid var(--main_color) !important;
+}
+.bootstrap-select .btn:active {
+    background-color: white !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border: 1px solid var(--main_color) !important;
+}
+.bootstrap-select .btn {
+    border: 1px solid var(--main_color);
+    border-radius: 0 3px 3px 0;
+    color: white;
+}
+.bootstrap-select .btn:hover {
+    background-color: var(--main_color_15);
+}
+
+/*dropdown*/
+.dropdown-menu > li.selected a {
+    background-color: var(--main_color_70);
+}
+.dropdown-menu > li:not(.selected):hover a {
+    background-color: var(--main_color_30);
+}
+.dropdown-item:focus {
+    outline: none !important;
+}
+.dropdown-toggle {
+    background-color: white !important;
+    border-color: var(--main_color) !important;
+}
+
+/*button redefine*/
+.btn-outline-primary {
+    color: var(--main_color);
+    background-color: transparent;
+    background-image: none;
+    border-color: var(--main_color);
+}
+.btn-outline-primary:hover {
+    color: #ffffff;
+    background-color: var(--light);
+    border-color: var(--main_color);
+}
+.btn-outline-primary:focus,
+.btn-outline-primary.focus {
+    box-shadow: 0 0 0 0 !important;
+}
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.show>.btn-outline-primary.dropdown-toggle {
+    color: #ffffff;
+    background-color: var(--main_color);
+    border-color: var(--main_color);
+}
+
+/*table redefine*/
+table {
+    font-family: "Times New Roman", sans-serif;
+    color: var(--darker);
+}
+
+#dtBasicExample > thead {
+    display: none !important;
+}
+
+.sorting, .sorting_disabled,
+.sorting_asc, .sorting_desc {
+    border: 0 !important;
+}
+
+th {
+    background-color: var(--main_color);
+    color: white;
+}
+
+thead th {
+    text-align: left !important;
+    padding: 8px 10px 8px 4px !important;
+}
+th.sorting_disabled {
+    padding-left: 10px !important;
+}
+
+table thead th:nth-child(1) {
+    border: 1px solid var(--main_color);
+    border-radius: 3px 0 0 0;
+}
+table thead th:nth-child(3) {
+    border: 1px solid var(--main_color);
+    border-radius: 0 3px 0 0;
+}
+
+table tbody {
+    border: 1px solid var(--main_color);
+    border-radius: 0 0 3px 3px;
+}
+
+tbody tr:hover {
+    font-weight: bold;
+    background-color: rgba(205, 152, 185, 0.15) !important;
+}
+tbody tr:not:hover {
+    font-weight: normal;
+    font-size: 10px;
+}
+
+tbody td:nth-child(3n+1){
+    border-left: 1px solid var(--main_color);
+}
+
+tbody td:nth-child(3n){
+    border-right: 1px solid var(--main_color);
+}
+
+.dataTables_scrollBody {
+    border-bottom: 1px solid var(--main_color) !important;
+}
+
+table a {text-decoration: none; color: var(--darker);}
+table a:hover {color: #340020; text-decoration: none;}
+
+/*date*/
+p {
+    color: var(--darker);
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
