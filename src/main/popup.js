@@ -1,5 +1,7 @@
-function getUrl(link) {
+function getCurrency(link, city) {
     let url = new URL(link);
+    url.searchParams.set('city', city);
+
     $.get(url, function (response) {
         let table = document.createElement("table");
         table.setAttribute("id", "dtBasicExample");
@@ -7,7 +9,6 @@ function getUrl(link) {
         table.setAttribute("width", "100%");
         table.classList.add("hover");
         table.classList.add("row-border");
-        table.classList.add("compact");
 
         let thead = document.createElement("thead");
         table.appendChild(thead);
@@ -40,8 +41,6 @@ function getUrl(link) {
             bankName.innerHTML = value[i];
             bankName.href = value[i+1];
             bankName.target = "_blank";
-            bankName.style.textDecoration = "none";
-            bankName.style.color = "black";
             bank.appendChild(bankName);
             tr.appendChild(bank);
 
@@ -52,31 +51,18 @@ function getUrl(link) {
             let sell = document.createElement("td");
             sell.innerHTML = value[i+2];
 
-
-            tr.onmouseover = function(){tr.style.fontWeight = "bold";};
-            tr.onmouseout = function(){tr.style.fontWeight = "normal";};
             tr.appendChild(sell);
         }
 
-        // let tfoot = document.createElement("tfoot");
-        // table.appendChild(tfoot);
-        //
-        // let last_tr = document.createElement("tr");
-        // tfoot.appendChild(last_tr);
-        //
-        // let last_bank = document.createElement("th");
-        // last_bank.innerHTML = "Bank";
-        // last_tr.appendChild(last_bank);
-        //
-        // let last_buy = document.createElement("th");
-        // last_buy.innerHTML = "Buy";
-        // last_tr.appendChild(last_buy);
-        //
-        // let last_sell = document.createElement("th");
-        // last_sell.innerHTML = "Sell";
-        // last_tr.appendChild(last_sell);
+        document.body.appendChild(table);
 
-        document.body.prepend(table);
+        let today = new Date().toLocaleString();
+        let updateData = document.createElement("p");
+        updateData.innerHTML = "Cập nhật: "+today;
+        updateData.style.fontFamily = "Times New Roman";
+        updateData.style.textAlign = "right";
+        document.body.appendChild(updateData);
+
         $(document).ready(function () {
             $('#dtBasicExample').DataTable({
                 "paging": false,
@@ -85,6 +71,7 @@ function getUrl(link) {
                 "scrollCollapse": true,
                 "searching": false,
                 "aaSorting": [],
+                "order": [[ 1, "desc" ]],
                 columnDefs: [{
                     orderable: false,
                     targets: 0
@@ -95,21 +82,51 @@ function getUrl(link) {
     });
 }
 
-getUrl('http://localhost:8080/readValue');
-let today = new Date().toLocaleString();
-let updateData = document.createElement("p");
-updateData.innerHTML = "Cập nhật: "+today;
-updateData.style.fontFamily = "Times New Roman";
-updateData.style.textAlign = "right";
-document.body.appendChild(updateData);
-// $.ajax({
-//     type: 'POST',
-//     url: 'http://localhost:8080/readValue',
-//     error: function() {
-//         alert("Failed");
-//     },
-//     success: function() {
-//         alert("Success");
-//     }
-// });
+$.ajax({
+    url: 'http://localhost:8080/usd?city=saint',
+    error: function() {
+        document.body.innerHTML = "";
+        let announcement = document.createElement("p");
+        announcement.innerHTML = "Không thể kết nối với máy chủ.";
+        document.body.appendChild(announcement);
+    },
+    success: function () {
+        getCurrency('http://localhost:8080/usd', 'saint');
+    }
+});
 
+
+$('.selectpicker').change(function () {
+    if (document.body.childElementCount === 4) {
+        document.body.removeChild(document.body.lastElementChild);
+        document.body.removeChild(document.body.lastElementChild);
+    }
+    if (USD.className.search("active") === -1) getCurrency('http://localhost:8080/eur', $('.selectpicker').val());
+    else getCurrency('http://localhost:8080/usd', $('.selectpicker').val());
+});
+
+let USD = document.getElementById("USD")
+USD.onclick = function () {
+    if (USD.className.search("active") === -1) {
+        USD.className += " active";
+        EUR.className = EUR.className.replace(" active", "");
+    }
+    if (document.body.childElementCount === 4) {
+        document.body.removeChild(document.body.lastElementChild);
+        document.body.removeChild(document.body.lastElementChild);
+    }
+    getCurrency('http://localhost:8080/usd', $('.selectpicker').val());
+}
+
+let EUR = document.getElementById("EUR")
+EUR.onclick = function () {
+    if (EUR.className.search("active") === -1) {
+        EUR.className += " active";
+        USD.className = USD.className.replace(" active", "");
+    }
+    if (document.body.childElementCount === 4) {
+        document.body.removeChild(document.body.lastElementChild);
+        document.body.removeChild(document.body.lastElementChild);
+    }
+    getCurrency('http://localhost:8080/eur', $('.selectpicker').val());
+}

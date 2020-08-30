@@ -32,11 +32,15 @@ public class UsdToRubApplication {
         s = s.replaceAll("[^a-zA-Zа-яА-Я0-9 ]", "");
         return s;
     }
-    @GetMapping("/readValue")
-    public String readValue() throws ParserConfigurationException, IOException, SAXException {
+    @GetMapping("/usd")
+    public String usd(@RequestParam(value = "city") String city) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
-        String url = "https://informer.kovalut.ru/webmaster/xml-table.php?kod=7801";
+        String url;
+        if (city.equals("saint"))
+            url = "https://informer.kovalut.ru/webmaster/xml-table.php?kod=7801";
+        else
+            url = "https://informer.kovalut.ru/webmaster/xml-table.php?kod=7701";
         Document doc = db.parse(new URL(url).openStream());
 
         NodeList bankList = doc.getElementsByTagName("Bank");
@@ -50,6 +54,39 @@ public class UsdToRubApplication {
                 bankInfo += preprocess(bankElement.getElementsByTagName("Name").item(0).getTextContent())+';';
                 bankInfo += bankElement.getElementsByTagName("Url").item(0).getTextContent()+';';
                 Element usd = (Element)bankElement.getElementsByTagName("USD").item(0);
+                bankInfo += usd.getElementsByTagName("Sell").item(0).getTextContent()+';';
+                bankInfo += usd.getElementsByTagName("Buy").item(0).getTextContent()+';';
+                bankInfo = bankInfo.replace("\n", "");
+                allInfo.append(bankInfo);
+                System.out.println(bankInfo);
+            }
+        }
+
+        return allInfo.toString();
+    }
+
+    @GetMapping("/eur")
+    public String eur(@RequestParam(value = "city") String city) throws ParserConfigurationException, IOException, SAXException {
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        String url;
+        if (city.equals("saint"))
+            url = "https://informer.kovalut.ru/webmaster/xml-table.php?kod=7801";
+        else
+            url = "https://informer.kovalut.ru/webmaster/xml-table.php?kod=7701";
+        Document doc = db.parse(new URL(url).openStream());
+
+        NodeList bankList = doc.getElementsByTagName("Bank");
+        StringBuilder allInfo = new StringBuilder();
+        for (int i = 0; i < bankList.getLength(); ++i) {
+            Node bank = bankList.item(i);
+            String bankInfo = "";
+
+            if (bank.getNodeType() == Node.ELEMENT_NODE) {
+                Element bankElement = (Element)bank;
+                bankInfo += preprocess(bankElement.getElementsByTagName("Name").item(0).getTextContent())+';';
+                bankInfo += bankElement.getElementsByTagName("Url").item(0).getTextContent()+';';
+                Element usd = (Element)bankElement.getElementsByTagName("EUR").item(0);
                 bankInfo += usd.getElementsByTagName("Sell").item(0).getTextContent()+';';
                 bankInfo += usd.getElementsByTagName("Buy").item(0).getTextContent()+';';
                 bankInfo = bankInfo.replace("\n", "");

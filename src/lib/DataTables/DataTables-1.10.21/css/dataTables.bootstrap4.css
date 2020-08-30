@@ -1,7 +1,6 @@
 table.dataTable {
   clear: both;
   margin-top: 6px !important;
-  margin-bottom: 0px !important;
   max-width: none !important;
   border-collapse: separate !important;
   border-spacing: 0;
@@ -209,13 +208,4 @@ div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:fir
 }
 div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:last-child {
   padding-right: 0;
-}
-
-
-table {
-  font-family: "Times New Roman", sans-serif;
-}
-thead th {
-  text-align: left !important;
-  padding: 6px 20px 6px 4px !important;
 }
