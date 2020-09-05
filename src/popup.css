@@ -1,14 +1,3 @@
-:root{
-    --main_color: #cd99b9;
-    --main_color_15: #cd99b926;
-    --main_color_30: #cd99b94D;
-    --main_color_70: #cd99b9B3;
-    --light: #e7b3d3;
-    --dark: #B480A0;
-    --darker: #814C6D;
-    --darkest: #340020;
-}
-
 table.dataTable thead .sorting:after,
 table.dataTable thead .sorting:before,
 table.dataTable thead .sorting_asc:after,
@@ -24,16 +13,16 @@ table.dataTable thead .sorting_desc_disabled:before {
 
 html {
     height: 200px;
-    width: 350px;
+    width: 400px;
     font-size: 12px;
     padding: 5px;
     color: var(--main_color);
 }
 
-#btnGroupAddon2 {
-    background-color: var(--main_color);
-    border: 0;
-    color: white;
+#btnGroupAddon1, #btnGroupAddon2 {
+    background-color: var(--main_color) !important;
+    border: 0 !important;
+    color: white !important;
 }
 
 .filter-option-inner-inner {
@@ -152,8 +141,9 @@ table tbody {
 
 tbody tr:hover {
     font-weight: bold;
-    background-color: rgba(205, 152, 185, 0.15) !important;
+    background-color: var(--main_color_15) !important;
 }
+
 tbody tr:not:hover {
     font-weight: normal;
     font-size: 10px;
@@ -172,7 +162,7 @@ tbody td:nth-child(3n){
 }
 
 table a {text-decoration: none; color: var(--darker);}
-table a:hover {color: #340020; text-decoration: none;}
+table a:hover {color: var(--darkest); text-decoration: none;}
 
 /*date*/
 p {
@@ -181,4 +171,23 @@ p {
     margin-bottom: 5px;
 }
 
+/*circle*/
+.circle-color {
+    width: 15px;
+    height: 15px;
+    border-radius: 18px;
+    margin-right: 5px;
+    display: inline-block;
+}
 
+.active-circle {
+    width: 18px;
+    height: 18px;
+    border: 1px solid black;
+}
+
+.group, .group:hover  {
+    background-color: var(--light) !important;
+    color: white;
+    font-weight: bold;
+}

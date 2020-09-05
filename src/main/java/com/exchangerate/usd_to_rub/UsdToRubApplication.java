@@ -41,21 +41,44 @@ public class UsdToRubApplication {
             url = "https://informer.kovalut.ru/webmaster/xml-table.php?kod=7801";
         else
             url = "https://informer.kovalut.ru/webmaster/xml-table.php?kod=7701";
+
         Document doc = db.parse(new URL(url).openStream());
 
-        NodeList bankList = doc.getElementsByTagName("Bank");
+        Element actual = (Element)doc.getElementsByTagName("Actual_Rates").item(0);
+        NodeList bankListActual = actual.getElementsByTagName("Bank");
+
         StringBuilder allInfo = new StringBuilder();
-        for (int i = 0; i < bankList.getLength(); ++i) {
-            Node bank = bankList.item(i);
+        for (int i = 0; i < bankListActual.getLength(); ++i) {
+            Element bank = (Element)bankListActual.item(i);
             String bankInfo = "";
 
             if (bank.getNodeType() == Node.ELEMENT_NODE) {
-                Element bankElement = (Element)bank;
-                bankInfo += preprocess(bankElement.getElementsByTagName("Name").item(0).getTextContent())+';';
-                bankInfo += bankElement.getElementsByTagName("Url").item(0).getTextContent()+';';
-                Element usd = (Element)bankElement.getElementsByTagName("USD").item(0);
+                bankInfo += preprocess(bank.getElementsByTagName("Name").item(0).getTextContent())+';';
+                bankInfo += bank.getElementsByTagName("Url").item(0).getTextContent()+';';
+                Element usd = (Element)bank.getElementsByTagName("USD").item(0);
                 bankInfo += usd.getElementsByTagName("Sell").item(0).getTextContent()+';';
                 bankInfo += usd.getElementsByTagName("Buy").item(0).getTextContent()+';';
+                bankInfo += "actual"+';';
+                bankInfo = bankInfo.replace("\n", "");
+                allInfo.append(bankInfo);
+                System.out.println(bankInfo);
+            }
+        }
+
+        Element nonActual = (Element)doc.getElementsByTagName("Not_Actual_Rates").item(0);
+        NodeList bankListNonActual = nonActual.getElementsByTagName("Bank");
+
+        for (int i = 0; i < bankListNonActual.getLength(); ++i) {
+            Element bank = (Element)bankListNonActual.item(i);
+            String bankInfo = "";
+
+            if (bank.getNodeType() == Node.ELEMENT_NODE) {
+                bankInfo += preprocess(bank.getElementsByTagName("Name").item(0).getTextContent())+';';
+                bankInfo += bank.getElementsByTagName("Url").item(0).getTextContent()+';';
+                Element usd = (Element)bank.getElementsByTagName("USD").item(0);
+                bankInfo += usd.getElementsByTagName("Sell").item(0).getTextContent()+';';
+                bankInfo += usd.getElementsByTagName("Buy").item(0).getTextContent()+';';
+                bankInfo += "non_actual"+';';
                 bankInfo = bankInfo.replace("\n", "");
                 allInfo.append(bankInfo);
                 System.out.println(bankInfo);
@@ -74,21 +97,44 @@ public class UsdToRubApplication {
             url = "https://informer.kovalut.ru/webmaster/xml-table.php?kod=7801";
         else
             url = "https://informer.kovalut.ru/webmaster/xml-table.php?kod=7701";
+
         Document doc = db.parse(new URL(url).openStream());
 
-        NodeList bankList = doc.getElementsByTagName("Bank");
+        Element actual = (Element)doc.getElementsByTagName("Actual_Rates").item(0);
+        NodeList bankListActual = actual.getElementsByTagName("Bank");
+
         StringBuilder allInfo = new StringBuilder();
-        for (int i = 0; i < bankList.getLength(); ++i) {
-            Node bank = bankList.item(i);
+        for (int i = 0; i < bankListActual.getLength(); ++i) {
+            Element bank = (Element)bankListActual.item(i);
             String bankInfo = "";
 
             if (bank.getNodeType() == Node.ELEMENT_NODE) {
-                Element bankElement = (Element)bank;
-                bankInfo += preprocess(bankElement.getElementsByTagName("Name").item(0).getTextContent())+';';
-                bankInfo += bankElement.getElementsByTagName("Url").item(0).getTextContent()+';';
-                Element usd = (Element)bankElement.getElementsByTagName("EUR").item(0);
+                bankInfo += preprocess(bank.getElementsByTagName("Name").item(0).getTextContent())+';';
+                bankInfo += bank.getElementsByTagName("Url").item(0).getTextContent()+';';
+                Element usd = (Element)bank.getElementsByTagName("EUR").item(0);
                 bankInfo += usd.getElementsByTagName("Sell").item(0).getTextContent()+';';
                 bankInfo += usd.getElementsByTagName("Buy").item(0).getTextContent()+';';
+                bankInfo += "actual"+';';
+                bankInfo = bankInfo.replace("\n", "");
+                allInfo.append(bankInfo);
+                System.out.println(bankInfo);
+            }
+        }
+
+        Element nonActual = (Element)doc.getElementsByTagName("Not_Actual_Rates").item(0);
+        NodeList bankListNonActual = nonActual.getElementsByTagName("Bank");
+
+        for (int i = 0; i < bankListNonActual.getLength(); ++i) {
+            Element bank = (Element)bankListNonActual.item(i);
+            String bankInfo = "";
+
+            if (bank.getNodeType() == Node.ELEMENT_NODE) {
+                bankInfo += preprocess(bank.getElementsByTagName("Name").item(0).getTextContent())+';';
+                bankInfo += bank.getElementsByTagName("Url").item(0).getTextContent()+';';
+                Element usd = (Element)bank.getElementsByTagName("EUR").item(0);
+                bankInfo += usd.getElementsByTagName("Sell").item(0).getTextContent()+';';
+                bankInfo += usd.getElementsByTagName("Buy").item(0).getTextContent()+';';
+                bankInfo += "non_actual"+';';
                 bankInfo = bankInfo.replace("\n", "");
                 allInfo.append(bankInfo);
                 System.out.println(bankInfo);

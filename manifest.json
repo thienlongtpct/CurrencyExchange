@@ -2,12 +2,14 @@
   "name": "usd_to_rub",
   "description": "Exchange rate between USD and RUB",
   "version": "1.0",
+  "options_page": "./src/options.html",
+  "options_ui": {
+    "page": "./src/options.html",
+    "open_in_tab": false
+  },
   "browser_action": {
     "default_icon": "icon.png",
-    "default_popup": "./src/main/popup.html"
+    "default_popup": "./src/popup.html"
   },
-  "permissions": [
-    "https://informer.kovalut.ru/webmaster/xml-table.php?kod=7801"
-  ],
   "manifest_version": 2
 }
